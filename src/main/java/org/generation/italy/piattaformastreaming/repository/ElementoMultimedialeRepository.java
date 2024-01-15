@@ -11,10 +11,12 @@ import org.springframework.stereotype.Repository;
 public interface ElementoMultimedialeRepository extends JpaRepository <ElementoMultimediale, Integer>{
 
 	List<ElementoMultimediale> findByTitoloLike(String titolo);
-	List<ElementoMultimediale> findByCategoria(String categoria);
+	List<ElementoMultimediale> findByTipologia(String categoria);
 	List<ElementoMultimediale> findByGenere(String genere);
 	//JPQL Java Persistence Query Language
-	@Query("select em from ElementoMultimediale em where em.anno> ? and em.anno<=? ")
+	@Query("select em from ElementoMultimediale em where em.anno> (?1) and em.anno<= (?2) ")
 	List<ElementoMultimediale> findByAnnoProduzione(int annoMin, int annoMax);
+	
+	List<ElementoMultimediale> findByAnnoBetween(int annoMin, int annoMax);
 	
 }

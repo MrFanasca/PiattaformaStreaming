@@ -21,15 +21,15 @@ public class ElementoMultimedialeController {
 	@Autowired
 	ElementoMultimedialeRepository elementoMultimedialeRepository;
 	
-	@GetMapping("/elenco")														//gestisce una richiesta GET all'indirizzo /Prodotti/elenco?categoria=xxx&ordinamento=asc
+	@GetMapping("/elenco")														//gestisce una richiesta GET all'indirizzo /elementoMultimediale/elenco?categoria=xxx&ordinamento=asc
 	@ResponseBody
 	public String elencoElementiMultimediali(
 			@RequestParam(required = false) String titolo,
-			@RequestParam(required = false) String categoria,
+			@RequestParam(required = false) String tipologia,
 			@RequestParam(required = false) String genere,
 			@RequestParam(required = false) String ordinamento,
-			@RequestParam(required = false) int annoMinimo,
-			@RequestParam(required = false) int annoMassimo) throws Exception {
+			@RequestParam(required = false) Integer annoMinimo,
+			@RequestParam(required = false) Integer annoMassimo) throws Exception {
 		
 		
 		ArrayList<ElementoMultimediale> elencoElementiMultimediali = null;
@@ -37,17 +37,17 @@ public class ElementoMultimedialeController {
 		if (titolo!=null)														// tutti i contenuti il cui titolo contiene una parola chiave
 			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findByTitoloLike("%"+titolo+"%");
 		
-		if (categoria!=null)													// tutti i contenuti di un determinata categoria
-			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findByCategoria(categoria);
+		if (tipologia!=null)													// tutti i contenuti di un determinata categoria
+			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findByTipologia(tipologia);
 		
 		if (genere!=null)														// tutti i contenuti di un determinato genere
 			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findByGenere(genere);
 		
-		if (titolo == null && genere == null && categoria == null) 				// tutti i contenuti 
+		if (titolo == null && genere == null && tipologia == null) 				// tutti i contenuti 
 			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findAll();
 		
-		if (annoMinimo != 0 && annoMassimo != 0)
-			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findByAnnoProduzione(annoMinimo, annoMassimo);		
+		if (annoMinimo != null && annoMassimo != null)
+			elencoElementiMultimediali=(ArrayList<ElementoMultimediale>) elementoMultimedialeRepository.findByAnnoBetween(annoMinimo, annoMassimo);		
 		
 		if (ordinamento!=null)
 		{
