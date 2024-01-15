@@ -1,0 +1,19 @@
+Realizzare un'applicazione Spring Boot che presenta all'utente un elenco di contenuti di una piattaforma di streaming.
+
+Ogni contenuto è rappresentato da:
+
+		Titolo
+		Tipologia (film, serie, documentario, ...)
+		Genere (horror, fantascienza, storico, ...)
+		Anno di produzione
+		Durata (in minuti)
+		
+L'applicazione deve consentire di visualizzare l'elenco dei contenuti tramite browser, parametrizzando l'elenco secondo diversi criteri:
+
+		tutti i contenuti
+		tutti i contenuti il cui titolo contiene una parola chiave
+		
+		tutti i contenuti di una determinata tipologia
+		tutti i contenuti di un determinato genere
+		tutti i contenuti il cui anno di produzione è compreso in un certo intervallo (es. dal 2010 al 2015)
+		i contenuti dovranno essere visualizzati in ordine alfabetico crescente o decrescente per titolo
