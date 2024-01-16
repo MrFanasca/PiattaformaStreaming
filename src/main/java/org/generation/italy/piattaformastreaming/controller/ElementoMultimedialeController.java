@@ -2,14 +2,14 @@ package org.generation.italy.piattaformastreaming.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.generation.italy.piattaformastreaming.model.ElementoMultimediale;
 import org.generation.italy.piattaformastreaming.repository.ElementoMultimedialeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -68,5 +68,18 @@ public class ElementoMultimedialeController {
 		for (ElementoMultimediale p:elencoElementiMultimediali)
 			elenco.append(p.toString()+ "<br>");
 		return elenco.toString();
+	}
+	
+	@GetMapping ("{id}")
+	@ResponseBody
+	public String dettaglioProdotto (@PathVariable Integer id) {
+		
+		Optional<ElementoMultimediale> optElementoMultimediale = elementoMultimedialeRepository.findById(id);
+		
+		if (optElementoMultimediale.isPresent())
+			return optElementoMultimediale.get().toString();
+		
+		else
+			return "Elemento non trovato";
 	}
 }
