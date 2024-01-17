@@ -5,10 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 
+	/*************/
+	// ATTRIBUTI //
+	/*************/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -28,6 +32,12 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 	@Column (nullable = false)
 	private int durata;
 
+	@ManyToOne (optional = false)
+	private Regista regista;
+	
+	/***************/
+	// COSTRUTTORI //
+	/***************/	
 	public ElementoMultimediale() {
 		super();
 	}
@@ -42,6 +52,9 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 		this.durata = durata;
 	}
 
+	/**********/
+	// GETTER //
+	/**********/
 	public int getId() {
 		return id;
 	}
@@ -66,6 +79,9 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 		return durata;
 	}
 
+	/**********/
+	// METODI //
+	/**********/
 	@Override
 	public String toString() {
 		return "ElementoMultimediale [id=" + id + ", titolo=" + titolo + ", tipologia=" + tipologia + ", genere="
@@ -73,21 +89,20 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 	}
 	
 	@Override
-	public int compareTo(ElementoMultimediale em) {								//confronto per nome
+	public int compareTo(ElementoMultimediale em) {								//confronto per titolo
 		
-		if (this.titolo.compareTo(em.getTitolo())!=0)							//se i nomi non sono uguali
+		if (this.titolo.compareTo(em.getTitolo())!=0)							//se i titoli non sono uguali
 			return this.titolo.compareTo(em.getTitolo());
 		
-		else {																	//se i nomi sono uguali ordino per prezzo
-			
-		if (this.anno>em.anno)
-			return 1;
+		else {																	//se i titoli sono uguali ordino per anno
+			if (this.anno>em.anno)
+				return 1;
 		
-		else if	(this.anno<em.anno)
-			return -1;
+			else if	(this.anno<em.anno)
+				return -1;
 		
-		else
-			return 0;
+			else
+				return 0;
 		}
 	}
 	

@@ -70,7 +70,7 @@ public class ElementoMultimedialeController {
 		return elenco.toString();
 	}
 	
-	@GetMapping ("{id}")
+	@GetMapping ("{id}")														// dettaglio 	
 	@ResponseBody
 	public String dettaglioProdotto (@PathVariable Integer id) {
 		
