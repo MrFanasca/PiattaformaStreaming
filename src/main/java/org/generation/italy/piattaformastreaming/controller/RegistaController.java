@@ -19,6 +19,12 @@ public class RegistaController {
 	@Autowired
 	RegistaRepository registaRepoitory;
 	
+	@GetMapping			//gestisce una richiesta GET all'indirizzo /regista
+	@ResponseBody
+	public String index() {
+		return "Benvenuto nella gestione dei registi!";
+	}
+	
 	@GetMapping("/elenco")
 	@ResponseBody
 	public String elencoElementiMultimediali(
@@ -30,11 +36,11 @@ public class RegistaController {
 		ArrayList <Regista> elencoRegisti = null;
 		
 		if (cognome!=null)	{													// tutti i registi che contengono nel cognome una parola chiave
-			elencoRegisti = (ArrayList<Regista>) registaRepoitory.findByCognomeLike(cognome);
+			elencoRegisti = (ArrayList<Regista>) registaRepoitory.findByCognomeLike("%"+cognome+"%");
 		}
 		
 		if (nome!=null)	{														// tutti i registi che contengono nel nome una parola chiave
-			elencoRegisti = (ArrayList<Regista>) registaRepoitory.findByNomeLike(nome);
+			elencoRegisti = (ArrayList<Regista>) registaRepoitory.findByNomeLike("%"+nome+"%");
 		}
 		
 		if (nazionalita!=null)	{												// tutti i registi di una determinata nazionalità
