@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
-public class Attore {
+public class Attore implements Comparable<Attore> {
 
 
 	/*************/
@@ -88,4 +88,18 @@ public class Attore {
 		return "Attore [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", nazionalita=" + nazionalita
 				+ ", dataNascita=" + dataNascita + "]";
 	}
+
+	@Override
+	public int compareTo(Attore a) {
+		if (this.cognome.compareTo(a.cognome)!=0)	{
+			return this.cognome.compareTo(a.cognome);
+			
+		} else	{
+			return this.nome.compareTo(a.nome);
+			
+		}
+		
+	}
+	
+	
 }
