@@ -2,6 +2,8 @@ package org.generation.italy.piattaformastreaming.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 	@Column (nullable = false)
 	private int durata;
 
+	@JsonBackReference
 	@ManyToOne (optional = false)
 	private Regista regista;
 	
@@ -91,7 +94,8 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 	@Override
 	public String toString() {
 		return "ElementoMultimediale [id=" + id + ", titolo=" + titolo + ", tipologia=" + tipologia + ", genere="
-				+ genere + ", anno=" + anno + ", durata=" + durata + "]";
+				+ genere + ", anno=" + anno + ", durata=" + durata +", Regista: " + regista.getCognome() + " " 
+				+ regista.getNome() + "]";
 	}
 	
 	@Override
