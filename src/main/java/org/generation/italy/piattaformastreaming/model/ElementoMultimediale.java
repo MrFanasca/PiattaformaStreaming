@@ -1,10 +1,13 @@
 package org.generation.italy.piattaformastreaming.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -34,6 +37,9 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 
 	@ManyToOne (optional = false)
 	private Regista regista;
+	
+	@ManyToMany (mappedBy = "elencoElementiMultimediali")
+	private List<Attore> elencoAttori;
 	
 	/***************/
 	// COSTRUTTORI //
