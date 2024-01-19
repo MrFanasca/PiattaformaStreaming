@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface AttoreRepository extends JpaRepository<Attore, Integer>{
 
 	List<Attore> findByNomeLike (String nome);
-	List<Attore> findByCogomeLike (String cognome);
+	List<Attore> findByCognomeLike (String cognome);
 	List<Attore> findByNazionalita (String nazionalita);
 }
