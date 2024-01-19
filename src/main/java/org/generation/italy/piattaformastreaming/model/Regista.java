@@ -2,6 +2,8 @@ package org.generation.italy.piattaformastreaming.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class Regista implements Comparable<Regista>{
 	@Column (nullable = false, length = 20)
 	private String nazionalita;
 	
+	@JsonBackReference
 	@OneToMany (mappedBy = "regista")
 	List<ElementoMultimediale> elementoMultimediale;
 	

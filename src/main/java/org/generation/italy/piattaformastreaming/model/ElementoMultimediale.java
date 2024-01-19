@@ -41,6 +41,7 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 	@ManyToOne (optional = false)
 	private Regista regista;
 	
+	@JsonBackReference
 	@ManyToMany (mappedBy = "elencoElementiMultimediali")
 	private List<Attore> elencoAttori;
 	

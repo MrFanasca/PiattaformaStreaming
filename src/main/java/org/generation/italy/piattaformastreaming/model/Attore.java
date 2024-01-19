@@ -3,6 +3,8 @@ package org.generation.italy.piattaformastreaming.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,7 @@ public class Attore implements Comparable<Attore> {
 	@Column
 	private LocalDate dataNascita;
 	
+	@JsonBackReference
 	@ManyToMany
 	private List<ElementoMultimediale> elencoElementiMultimediali;
 

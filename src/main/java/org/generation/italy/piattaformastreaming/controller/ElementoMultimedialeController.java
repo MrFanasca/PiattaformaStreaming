@@ -21,6 +21,12 @@ public class ElementoMultimedialeController {
 	@Autowired
 	ElementoMultimedialeRepository elementoMultimedialeRepository;
 	
+	@GetMapping																	//gestisce una richiesta GET all'indirizzo /ElementoMultimediale
+	@ResponseBody
+	public String index() {
+		return "Benvenuto nella gestione degli elementi multimediali!";
+	}
+	
 	@GetMapping("/elenco")														//gestisce una richiesta GET all'indirizzo /elementoMultimediale/elenco?categoria=xxx&ordinamento=asc
 	@ResponseBody
 	public String elencoElementiMultimediali(
