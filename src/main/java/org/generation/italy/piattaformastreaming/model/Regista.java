@@ -30,7 +30,7 @@ public class Regista implements Comparable<Regista>{
 	@Column (nullable = false, length = 20)
 	private String nazionalita;
 	
-	@JsonBackReference
+	
 	@OneToMany (mappedBy = "regista")
 	List<ElementoMultimediale> elementoMultimediale;
 	

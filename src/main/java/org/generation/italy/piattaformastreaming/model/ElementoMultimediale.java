@@ -89,6 +89,10 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 		return durata;
 	}
 
+	public Regista getRegista() {
+		return regista;
+	}
+
 	/**********/
 	// METODI //
 	/**********/
