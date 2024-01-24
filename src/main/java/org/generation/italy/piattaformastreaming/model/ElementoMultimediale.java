@@ -37,7 +37,7 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 	@Column (nullable = false)
 	private int durata;
 
-	@JsonBackReference
+	//@JsonBackReference
 	@ManyToOne (optional = false)
 	private Regista regista;
 	

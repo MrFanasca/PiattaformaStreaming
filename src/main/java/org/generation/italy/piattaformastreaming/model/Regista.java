@@ -30,9 +30,9 @@ public class Regista implements Comparable<Regista>{
 	@Column (nullable = false, length = 20)
 	private String nazionalita;
 	
-	
+	@JsonBackReference
 	@OneToMany (mappedBy = "regista")
-	List<ElementoMultimediale> elementoMultimediale;
+	List<ElementoMultimediale> elencoElementoMultimediale;
 	
 	/***************/
 	// COSTRUTTORI //
@@ -67,11 +67,12 @@ public class Regista implements Comparable<Regista>{
 	public String getNazionalita() {
 		return nazionalita;
 	}
-	
-	public List<ElementoMultimediale> getElencoElementiMultimediale () {
-		
-		return elementoMultimediale;
-	}
+
+	// se commentato non da più il problema del loop infinito nella ricerca api dell'elemento multimediale
+//	public List<ElementoMultimediale> getElencoElementiMultimediali () {
+//		
+//		return elencoElementoMultimediale;
+//	}
 
 	/**********/
 	// METODI //
@@ -80,7 +81,7 @@ public class Regista implements Comparable<Regista>{
 	@Override
 	public String toString() {
 		return "Regista [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", nazionalita=" + nazionalita
-				+ ", elementoMultimediale=" + elementoMultimediale + "]";
+				+ "]";
 	}
 
 	@Override
