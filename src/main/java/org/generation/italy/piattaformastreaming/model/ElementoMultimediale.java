@@ -93,6 +93,30 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 		return regista;
 	}
 
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+
+	public void setTipologia(String tipologia) {
+		this.tipologia = tipologia;
+	}
+
+	public void setGenere(String genere) {
+		this.genere = genere;
+	}
+
+	public void setAnno(int anno) {
+		this.anno = anno;
+	}
+
+	public void setDurata(int durata) {
+		this.durata = durata;
+	}
+	
+	public void setRegista(Regista regista) {
+		this.regista = regista;
+	}
+
 	/**********/
 	// METODI //
 	/**********/
