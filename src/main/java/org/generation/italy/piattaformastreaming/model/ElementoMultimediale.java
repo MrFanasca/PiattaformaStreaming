@@ -62,9 +62,9 @@ public class ElementoMultimediale implements Comparable<ElementoMultimediale>{
 		this.durata = durata;
 	}
 
-	/**********/
-	// GETTER //
-	/**********/
+	/*******************/
+	// GETTER E SETTER //
+	/*******************/
 	public int getId() {
 		return id;
 	}

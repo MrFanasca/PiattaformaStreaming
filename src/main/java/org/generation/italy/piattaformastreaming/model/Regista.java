@@ -49,9 +49,9 @@ public class Regista implements Comparable<Regista>{
 		this.nazionalita = nazionalita;
 	}
 	
-	/**********/
-	// GETTER //
-	/**********/
+	/*******************/
+	// GETTER E SETTER //
+	/*******************/
 	public int getId() {
 		return id;
 	}
@@ -68,11 +68,24 @@ public class Regista implements Comparable<Regista>{
 		return nazionalita;
 	}
 
+	
 	// se commentato non da più il problema del loop infinito nella ricerca api dell'elemento multimediale
 //	public List<ElementoMultimediale> getElencoElementiMultimediali () {
 //		
 //		return elencoElementoMultimediale;
 //	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setNazionalita(String nazionalita) {
+		this.nazionalita = nazionalita;
+	}
 
 	/**********/
 	// METODI //

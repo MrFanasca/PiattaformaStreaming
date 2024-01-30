@@ -81,6 +81,18 @@ public class Attore implements Comparable<Attore> {
 		return elencoElementiMultimediali;
 	}
 	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setNazionalita(String nazionalita) {
+		this.nazionalita = nazionalita;
+	}
+
 	public void setDataNascita(LocalDate dataNascita) {
 		this.dataNascita = dataNascita;
 	}

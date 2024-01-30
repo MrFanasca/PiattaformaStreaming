@@ -7,6 +7,8 @@ import org.generation.italy.piattaformastreaming.model.ElementoMultimediale;
 import org.generation.italy.piattaformastreaming.repository.ElementoMultimedialeRepository;
 import org.generation.italy.piattaformastreaming.repository.RegistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,18 +38,44 @@ public class ElementoMultimedialeRestController {
 	}
 	
 	@GetMapping("/elenco")
-	public List<ElementoMultimediale> elencoElementoMultimediale () {
-		return elementoMultimedialeRepository.findAll();
+	public ResponseEntity<List<ElementoMultimediale>> elencoElementoMultimediale (@RequestParam(required=false) String tipologia) {
+		
+		try {
+			
+			List<ElementoMultimediale> elencoElementoMultimediale;
+			
+			if (tipologia == null) {
+				
+				elencoElementoMultimediale = elementoMultimedialeRepository.findAll();
+			} else {
+				
+				elencoElementoMultimediale = elementoMultimedialeRepository.findByTipologia(tipologia);
+			}
+			
+			if (elencoElementoMultimediale.size()>0) {
+				
+				return new ResponseEntity<List<ElementoMultimediale>>(elencoElementoMultimediale, HttpStatus.OK);
+			} else {
+				
+				return new ResponseEntity<List<ElementoMultimediale>>(HttpStatus.NO_CONTENT);
+			}
+		} catch (Exception e) {
+
+			return new ResponseEntity<List<ElementoMultimediale>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
 	}
 	
 	@GetMapping("{id}")
-	public ElementoMultimediale dettaglioElementoMultimediale (@PathVariable("id") int id) {
+	public ResponseEntity<ElementoMultimediale> dettaglioElementoMultimediale (@PathVariable("id") int id) {
 		
 		Optional <ElementoMultimediale> result = elementoMultimedialeRepository.findById(id);
-		if(result.isPresent())
-			return result.get();
-		else
-			return null;
+		if (result.isPresent()) {
+			
+			return new ResponseEntity<ElementoMultimediale>(result.get(), HttpStatus.OK);
+		} else {
+		
+			return new ResponseEntity<ElementoMultimediale>(HttpStatus.NOT_FOUND);
+		}			
 	}
 	
 	/******************/
@@ -79,8 +108,7 @@ public class ElementoMultimedialeRestController {
 			em.setRegista(elementoMultimediale.getRegista());
 			
 			return elementoMultimedialeRepository.save(em);
-		}
-		else {
+		} else {
 			
 			return null;
 		}
