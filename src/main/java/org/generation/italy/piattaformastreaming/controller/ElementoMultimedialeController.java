@@ -8,6 +8,7 @@ import org.generation.italy.piattaformastreaming.model.ElementoMultimediale;
 import org.generation.italy.piattaformastreaming.repository.ElementoMultimedialeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,14 +29,13 @@ public class ElementoMultimedialeController {
 	}
 	
 	@GetMapping("/elenco")														//gestisce una richiesta GET all'indirizzo /elementoMultimediale/elenco?categoria=xxx&ordinamento=asc
-	@ResponseBody
-	public String elencoElementiMultimediali(
-			@RequestParam(required = false) String titolo,
-			@RequestParam(required = false) String tipologia,
-			@RequestParam(required = false) String genere,
-			@RequestParam(required = false) String ordinamento,
-			@RequestParam(required = false) Integer annoMinimo,
-			@RequestParam(required = false) Integer annoMassimo) throws Exception {
+	public String elencoElementiMultimediali( Model model,
+												@RequestParam(required = false) String titolo,
+												@RequestParam(required = false) String tipologia,
+												@RequestParam(required = false) String genere,
+												@RequestParam(required = false) String ordinamento,
+												@RequestParam(required = false) Integer annoMinimo,
+												@RequestParam(required = false) Integer annoMassimo) throws Exception {
 		
 		
 		ArrayList<ElementoMultimediale> elencoElementiMultimediali = null;
@@ -67,25 +67,26 @@ public class ElementoMultimedialeController {
 				return "Ordinamento non valido";
 		}
 		
-		StringBuilder elenco=new StringBuilder();
-		elenco.append("Numero Elementi Multimediali: "+elencoElementiMultimediali.size());
-		elenco.append("<br><br>");
+		model.addAttribute("elenco", elencoElementiMultimediali);
 		
-		for (ElementoMultimediale p:elencoElementiMultimediali)
-			elenco.append(p.toString()+ "<br>");
-		return elenco.toString();
+		return "elementiMultimediali/elenco";
 	}
 	
-	@GetMapping ("{id}")														// dettaglio 	
-	@ResponseBody
-	public String dettaglioProdotto (@PathVariable Integer id) {
+	@GetMapping ("/dettaglio/{id}")														// dettaglio dell'elemento tramite id 	
+	public String dettaglioElementoMultimediale (Model model, @PathVariable Integer id) {
 		
 		Optional<ElementoMultimediale> optElementoMultimediale = elementoMultimedialeRepository.findById(id);
 		
-		if (optElementoMultimediale.isPresent())
-			return optElementoMultimediale.get().toString();
-		
-		else
+		if (optElementoMultimediale.isPresent()) {
+			
+			ElementoMultimediale em = optElementoMultimediale.get();
+			model.addAttribute("elementoMultimediale", em);
+			
+			return "elementiMultimediali/dettaglio";
+		} else {
+			
 			return "Elemento non trovato";
+		}
 	}
+	
 }

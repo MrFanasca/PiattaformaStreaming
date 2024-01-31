@@ -2,12 +2,16 @@ package org.generation.italy.piattaformastreaming.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
+import org.generation.italy.piattaformastreaming.model.ElementoMultimediale;
 import org.generation.italy.piattaformastreaming.model.Regista;
 import org.generation.italy.piattaformastreaming.repository.RegistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,12 +30,11 @@ public class RegistaController {
 	}
 	
 	@GetMapping("/elenco")
-	@ResponseBody
-	public String elencoElementiMultimediali(
-			@RequestParam(required = false) String cognome,
-			@RequestParam(required = false) String nome,
-			@RequestParam(required = false) String nazionalita,
-			@RequestParam(required = false) String ordinamento) throws Exception {
+	public String elencoRegisti(Model model,
+												@RequestParam(required = false) String cognome,
+												@RequestParam(required = false) String nome,
+												@RequestParam(required = false) String nazionalita,
+												@RequestParam(required = false) String ordinamento) throws Exception {
 
 		ArrayList <Regista> elencoRegisti = null;
 		
@@ -61,14 +64,26 @@ public class RegistaController {
 				return "Ordinamento non valido";
 		}
 		
-		StringBuilder elenco=new StringBuilder();
-		elenco.append("Numero Registi: "+elencoRegisti.size());
-		elenco.append("<br><br>");
+		model.addAttribute("elenco", elencoRegisti);
 		
-		for (Regista r:elencoRegisti)
-			elenco.append(r.toString()+ "<br>");
-		
-		return elenco.toString();
+		return "registi/elenco";
 	}
 
+	@GetMapping ("/dettaglio/{id}")														// dettaglio dell'elemento tramite id 	
+	public String dettaglioRegista (Model model, @PathVariable Integer id) {
+		
+		Optional<Regista> optRegista = registaRepoitory.findById(id);
+		
+		if (optRegista.isPresent()) {
+			
+			Regista r = optRegista.get();
+			model.addAttribute("regista", r);
+			
+			return "registi/dettaglio";
+		} else {
+			
+			return "Elemento non trovato";
+		}
+	}
+	
 }
